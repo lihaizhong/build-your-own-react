@@ -1,0 +1,23 @@
+{
+  "name": "build-your-own-react",
+  "version": "1.0.0",
+  "private": true,
+  "description": "build your own react",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "build your own react"
+  ],
+  "author": "lihzsky",
+  "license": "ISC",
+  "packageManager": "pnpm@10.12.4",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^28.0.6",
+    "rimraf": "^6.0.1",
+    "rollup": "^4.44.2",
+    "rollup-plugin-generate-package-json": "^3.2.0",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "typescript": "^5.8.3"
+  }
+}
