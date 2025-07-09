@@ -15,3 +15,6 @@ export interface ReactElementType {
   // 为了与官方 react 包区分开的自定义字段
   __mark: string;
 }
+
+// 定义 Action Type
+export type Action<State> = State | ((prevState: State) => State);
