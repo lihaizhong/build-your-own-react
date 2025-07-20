@@ -2,6 +2,7 @@
   "name": "build-your-own-react",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "keywords": [
     "build your own react"
   ],
@@ -18,10 +19,14 @@
     "url": "git@github.com:lihaizhong/build-your-own-react.git"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
     "@eslint/js": "^9.31.0",
     "@eslint/markdown": "^7.0.0",
     "@rollup/plugin-commonjs": "^28.0.6",
+    "commitlint": "^19.8.1",
     "eslint": "^9.31.0",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.3",
     "globals": "^16.3.0",
     "husky": "^9.1.7",
