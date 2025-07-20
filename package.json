@@ -2,22 +2,35 @@
   "name": "build-your-own-react",
   "version": "1.0.0",
   "private": true,
-  "description": "build your own react",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [
     "build your own react"
   ],
+  "description": "build your own react",
+  "scripts": {
+    "lint": "eslint --ext .ts,.jsx,.tsx --fix --quiet ./packages",
+    "prepare": "husky",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "author": "lihzsky",
-  "license": "ISC",
-  "packageManager": "pnpm@10.12.4",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:lihaizhong/build-your-own-react.git"
+  },
   "devDependencies": {
+    "@eslint/js": "^9.31.0",
+    "@eslint/markdown": "^7.0.0",
     "@rollup/plugin-commonjs": "^28.0.6",
+    "eslint": "^9.31.0",
+    "eslint-plugin-prettier": "^5.5.3",
+    "globals": "^16.3.0",
+    "husky": "^9.1.7",
+    "prettier": "^3.6.2",
     "rimraf": "^6.0.1",
     "rollup": "^4.44.2",
     "rollup-plugin-generate-package-json": "^3.2.0",
     "rollup-plugin-typescript2": "^0.36.0",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.37.0"
   }
 }
