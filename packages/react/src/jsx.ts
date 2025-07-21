@@ -1,4 +1,4 @@
-import { REACT_ELEMENT_TYPE } from "shared/ReactSymbols";
+import { REACT_ELEMENT_TYPE } from "lihzsky-shared/ReactSymbols";
 import {
   Type,
   Key,
@@ -6,7 +6,7 @@ import {
   Ref,
   ElementType,
   ReactElementType,
-} from "shared/ReactTypes";
+} from "lihzsky-shared/ReactTypes";
 
 function ReactElement(
   type: Type,

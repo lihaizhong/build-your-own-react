@@ -65,13 +65,13 @@ importers:
 
   packages/react:
     dependencies:
-      shared:
+      lihzsky-shared:
         specifier: workspace:*
         version: link:../shared
 
   packages/react-reconciler:
     dependencies:
-      shared:
+      lihzsky-shared:
         specifier: 'workspace: *'
         version: link:../shared
 

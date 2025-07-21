@@ -15,7 +15,18 @@ export default defineConfig([
     files: ["**/*.{js,mjs,cjs,ts,mts,cts}"],
     languageOptions: { globals: { ...globals.browser, ...globals.node } },
   },
-  tseslint.configs.recommended,
+  tseslint.config(js.configs.recommended, tseslint.configs.recommended, {
+    rules: {
+      "prettier/prettier": "error",
+      "no-case-declarations": "off",
+      "no-constant-condition": "off",
+      "no-unused-vars": "off",
+      "@typescript-eslint/ban-ts-comment": "off",
+      "@typescript-eslint/no-unused-vars": "off",
+      "@typescript-eslint/no-var-requires": "off",
+      "@typescript-eslint/no-explicit-any": "off",
+    },
+  }),
   {
     files: ["**/*.md"],
     plugins: { markdown },
