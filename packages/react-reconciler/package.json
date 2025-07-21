@@ -1,5 +1,5 @@
 {
-	"name": "react-reconciler",
+	"name": "lihzsky-react-reconciler",
 	"version": "1.0.0",
 	"description": "react reconciler",
 	"module": "index.ts",
@@ -9,6 +9,6 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
-	"author": "",
-	"license": "ISC"
+	"author": "lihzsky",
+	"license": "MIT"
 }

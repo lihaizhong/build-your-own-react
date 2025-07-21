@@ -1,5 +1,5 @@
 {
-	"name": "react",
+	"name": "lihzsky-react",
 	"version": "1.0.0",
 	"description": "react common functions",
 	"module": "index.ts",
@@ -7,6 +7,6 @@
 		"shared": "workspace:*"
 	},
 	"keywords": [],
-	"author": "",
-	"license": "ISC"
+	"author": "lihzsky",
+	"license": "MIT"
 }

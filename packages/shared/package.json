@@ -1,6 +1,10 @@
 {
-  "name": "shared",
+  "name": "lihzsky-shared",
   "version": "0.0.0",
-  "private": true,
-  "description": "shared hepler functions and symbols"
+  "description": "shared helper functions and symbols",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "lihzsky",
+	"license": "MIT"
 }
