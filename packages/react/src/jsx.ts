@@ -33,6 +33,8 @@ export function jsx(
   let ref: Ref = null;
   const props: Props = {};
 
+  // 排除两个关键属性 key 和 ref
+  // 其他的属性都作为 props 的属性
   for (const prop in config) {
     const val = config[prop];
 
@@ -60,16 +62,15 @@ export function jsx(
   const childrenLength = children.length;
 
   if (childrenLength) {
-    if (childrenLength === 1) {
-      props.children = children[0];
-    } else {
-      props.children = children;
-    }
+    props.children = childrenLength === 1 ? children[0] : children;
   }
 
   return ReactElement(type, key, ref, props);
 }
 
+/**
+ * 开发环境不做 children 的处理，方便后续做额外的检查
+ */
 export function jsxDev(
   type: ElementType,
   config: any,

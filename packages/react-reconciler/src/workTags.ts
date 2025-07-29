@@ -1,10 +1,14 @@
-export type Flags = number;
+/**
+ * 用于标识不同类型的工作单元
+ */
 
-export const NoFlags = 0b00000000;
-export const PerformedWork = 0b00000001;
-// 插入标记
-export const Placement = 0b00000010;
-// 更新标记
-export const Update = 0b00000100;
-// 删除标记
-export const Deletion = 0b00001000;
+export type WorkTag =
+  | typeof FunctionComponent
+  | typeof HostRoot
+  | typeof HostComponent
+  | typeof HostText;
+
+export const FunctionComponent = 0;
+export const HostRoot = 3;
+export const HostComponent = 5;
+export const HostText = 6;
