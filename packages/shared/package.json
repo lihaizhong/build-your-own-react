@@ -1,10 +1,13 @@
 {
-  "name": "lihzsky-shared",
-  "version": "0.0.0",
-  "description": "shared helper functions and symbols",
+	"name": "lihzsky-shared",
+	"version": "0.0.0",
+	"description": "shared helper functions and symbols",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"author": "lihzsky",
-	"license": "MIT"
+	"license": "MIT",
+	"dependencies": {
+		"lihzsky-react": "workspace:^"
+	}
 }

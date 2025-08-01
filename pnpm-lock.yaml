@@ -87,7 +87,11 @@ importers:
         specifier: 'workspace: *'
         version: link:../shared
 
-  packages/shared: {}
+  packages/shared:
+    dependencies:
+      lihzsky-react:
+        specifier: workspace:^
+        version: link:../react
 
 packages:
 
