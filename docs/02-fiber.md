@@ -34,20 +34,16 @@ function updateComponent(component) {
 
 将大任务拆分成小单元：
 
-```
-┌──────────────────────────────────────────────────────────────┐
-│                       主线程时间线                             │
-├──────────────────────────────────────────────────────────────┤
-│                                                              │
-│  ┌─────┐ ┌─────┐ ┌─────┐ ┌───┐ ┌─────┐ ┌─────┐ ┌─────┐     │
-│  │Fiber│ │Fiber│ │Fiber│ │用户│ │Fiber│ │Fiber│ │Fiber│     │
-│  │  1  │ │  2  │ │  3  │ │交互│ │  4  │ │  5  │ │  6  │     │
-│  └─────┘ └─────┘ └─────┘ └───┘ └─────┘ └─────┘ └─────┘     │
-│                          ▲                                   │
-│                          │                                   │
-│                    暂停/恢复                                 │
-│                                                              │
-└──────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart LR
+    subgraph MainThread["主线程时间线"]
+        direction LR
+        F1["Fiber 1"] --> F2["Fiber 2"] --> F3["Fiber 3"]
+        F3 --> U["用户交互"]
+        U --> F4["Fiber 4"] --> F5["Fiber 5"] --> F6["Fiber 6"]
+    end
+    
+    F3 -.->|"暂停/恢复"| U
 ```
 
 **优点**：
@@ -149,49 +145,54 @@ class FiberRootNode {
 
 ### FiberRoot 与 HostRootFiber 的关系
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                                                             │
-│   FiberRootNode                                             │
-│   ┌───────────────────┐                                    │
-│   │ container: div#root│                                    │
-│   │ current ──────────┼───▶ HostRootFiber                  │
-│   │ finishedWork      │    ┌─────────────────┐             │
-│   └───────────────────┘    │ tag: HostRoot   │             │
-│                            │ stateNode ──────┼──▶ FiberRoot│
-│                            │ child ──────────┼──▶ App Fiber│
-│                            └─────────────────┘             │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TB
+    subgraph FiberRootNode
+        container["container: div#root"]
+        current["current"]
+        finishedWork["finishedWork"]
+    end
+
+    subgraph HostRootFiber
+        tag["tag: HostRoot"]
+        stateNode["stateNode"]
+        child["child"]
+    end
+
+    current --> HostRootFiber
+    stateNode --> FiberRootNode
+    child --> AppFiber["App Fiber"]
 ```
 
 ## 双缓冲机制
 
 React 维护两棵 Fiber 树：
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                                                             │
-│         current 树              workInProgress 树            │
-│        (屏幕显示)                (正在构建)                  │
-│                                                             │
-│        ┌───────┐                   ┌───────┐               │
-│        │   A   │◀────alternate────▶│   A'  │               │
-│        └───────┘                   └───────┘               │
-│           │                           │                     │
-│        ┌──┴──┐                     ┌──┴──┐                 │
-│        │     │                     │     │                 │
-│        ▼     ▼                     ▼     ▼                 │
-│     ┌───┐ ┌───┐                 ┌───┐ ┌───┐               │
-│     │ B │ │ C │◀──alternate───▶ │B' │ │C' │               │
-│     └───┘ └───┘                 └───┘ └───┘               │
-│                                                             │
-│   FiberRoot.current ────────────▶ current 树               │
-│                                                             │
-│   更新完成后：                                                │
-│   FiberRoot.current = workInProgress 树                     │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TB
+    subgraph currentTree["current 树 (屏幕显示)"]
+        A["A"]
+        B["B"]
+        C["C"]
+        A --> B
+        A --> C
+    end
+
+    subgraph wipTree["workInProgress 树 (正在构建)"]
+        A2["A'"]
+        B2["B'"]
+        C2["C'"]
+        A2 --> B2
+        A2 --> C2
+    end
+
+    A <-.->|"alternate"| A2
+    B <-.->|"alternate"| B2
+    C <-.->|"alternate"| C2
+
+    FiberRoot["FiberRoot.current"] --> currentTree
+
+    note["更新完成后：<br/>FiberRoot.current = workInProgress 树"]
 ```
 
 ### 为什么需要双缓冲？
@@ -239,37 +240,44 @@ function createWorkInProgress(
 
 ### 从 ReactElement 到 Fiber
 
-```
-ReactElement 树              Fiber 树
-    ┌───┐                    ┌───┐
-    │div│                    │div│
-    └─┬─┘                    └─┬─┘
-      │                        │
-  ┌───┴───┐                ┌───┴───┐
-  │       │                │       │
-  ▼       ▼                ▼       ▼
-┌───┐   ┌───┐           child   sibling
-│h1 │   │ p │            │       │
-└───┘   └───┘            ▼       ▼
-                           h1─────▶p
+```mermaid
+flowchart LR
+    subgraph ReactElement树
+        RE_div["div"]
+        RE_h1["h1"]
+        RE_p["p"]
+        RE_div --> RE_h1
+        RE_div --> RE_p
+    end
+
+    subgraph Fiber树
+        F_div["div"]
+        F_h1["h1"]
+        F_p["p"]
+        F_div -->|"child"| F_h1
+        F_h1 -->|"sibling"| F_p
+    end
+
+    ReactElement树 -->|"转换"| Fiber树
 ```
 
 ### Fiber 树的遍历
 
 DFS 深度优先遍历：
 
+```mermaid
+flowchart TB
+    A --> B
+    A --> C
+    B --> D
+    B --> E
+    C --> F
 ```
-        A
-       / \
-      B   C
-     / \   \
-    D   E   F
 
 遍历顺序: A → B → D → E → C → F
-         入  入  入  出  入  出
-               ↓   ↓       ↓
-            completeWork
-```
+
+- **beginWork**: 入节点时执行
+- **completeWork**: 出节点时执行
 
 ## 实现示例
 

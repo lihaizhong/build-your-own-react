@@ -4,62 +4,25 @@
 
 ## 协调流程概览
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                        Render Phase                              │
-│                       (可中断的异步过程)                          │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│   scheduleUpdateOnFiber                                         │
-│          │                                                      │
-│          ▼                                                      │
-│   ┌──────────────┐                                             │
-│   │ prepareFresh │  初始化 workInProgress                       │
-│   │    Stack     │                                             │
-│   └──────────────┘                                             │
-│          │                                                      │
-│          ▼                                                      │
-│   ┌──────────────┐     ┌──────────────┐                        │
-│   │  workLoop    │────▶│performUnitOf │                        │
-│   │  (循环)      │◀────│    Work      │                        │
-│   └──────────────┘     └──────────────┘                        │
-│                               │                                 │
-│                    ┌──────────┴──────────┐                      │
-│                    ▼                     ▼                      │
-│            ┌──────────────┐      ┌──────────────┐              │
-│            │  beginWork   │      │completeWork  │              │
-│            │  (递阶段)    │      │  (归阶段)    │              │
-│            └──────────────┘      └──────────────┘              │
-│                    │                     │                      │
-│                    ▼                     ▼                      │
-│              创建子 Fiber          收集副作用标记                 │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-          │
-          ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                       Commit Phase                               │
-│                      (不可中断的同步过程)                         │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│   commitRoot(root)                                              │
-│          │                                                      │
-│          ▼                                                      │
-│   ┌──────────────┐                                             │
-│   │ beforeMutation│  读取 DOM 快照                              │
-│   └──────────────┘                                             │
-│          │                                                      │
-│          ▼                                                      │
-│   ┌──────────────┐                                             │
-│   │   mutation   │  执行 DOM 操作                               │
-│   └──────────────┘                                             │
-│          │                                                      │
-│          ▼                                                      │
-│   ┌──────────────┐                                             │
-│   │    layout    │  调用生命周期/使用布局                        │
-│   └──────────────┘                                             │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TB
+    subgraph RenderPhase["Render Phase - 可中断的异步过程"]
+        scheduleUpdateOnFiber --> prepareFreshStack["prepareFreshStack<br/>初始化 workInProgress"]
+        prepareFreshStack --> workLoop
+        workLoop <--> performUnitOfWork
+        performUnitOfWork --> beginWork["beginWork<br/>递阶段"]
+        performUnitOfWork --> completeWork["completeWork<br/>归阶段"]
+        beginWork --> createChildFiber["创建子 Fiber"]
+        completeWork --> collectFlags["收集副作用标记"]
+    end
+
+    subgraph CommitPhase["Commit Phase - 不可中断的同步过程"]
+        commitRoot --> beforeMutation["beforeMutation<br/>读取 DOM 快照"]
+        beforeMutation --> mutation["mutation<br/>执行 DOM 操作"]
+        mutation --> layout["layout<br/>调用生命周期/使用布局"]
+    end
+
+    RenderPhase --> CommitPhase
 ```
 
 ## 工作循环 (workLoop)
