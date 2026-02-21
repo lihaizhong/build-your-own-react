@@ -38,9 +38,12 @@ importers:
       eslint:
         specifier: ^10.0.1
         version: 10.0.1(jiti@2.4.2)
+      eslint-config-prettier:
+        specifier: ^10.1.8
+        version: 10.1.8(eslint@10.0.1(jiti@2.4.2))
       eslint-plugin-prettier:
         specifier: ^5.5.5
-        version: 5.5.5(eslint@10.0.1(jiti@2.4.2))(prettier@3.8.1)
+        version: 5.5.5(eslint-config-prettier@10.1.8(eslint@10.0.1(jiti@2.4.2)))(eslint@10.0.1(jiti@2.4.2))(prettier@3.8.1)
       globals:
         specifier: ^17.3.0
         version: 17.3.0
@@ -1069,6 +1072,12 @@ packages:
   escape-string-regexp@4.0.0:
     resolution: {integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==}
     engines: {node: '>=10'}
+
+  eslint-config-prettier@10.1.8:
+    resolution: {integrity: sha512-82GZUjRS0p/jganf6q1rEO25VSoHH0hKPCTrgillPjdI/3bgBhAE1QzHrHTizjpRvy6pGAvKjDJtk2pF9NDq8w==}
+    hasBin: true
+    peerDependencies:
+      eslint: '>=7.0.0'
 
   eslint-plugin-prettier@5.5.5:
     resolution: {integrity: sha512-hscXkbqUZ2sPithAuLm5MXL+Wph+U7wHngPBv9OMWwlP8iaflyxpjTYZkmdgB4/vPIhemRlBEoLrH7UC1n7aUw==}
@@ -2833,12 +2842,18 @@ snapshots:
 
   escape-string-regexp@4.0.0: {}
 
-  eslint-plugin-prettier@5.5.5(eslint@10.0.1(jiti@2.4.2))(prettier@3.8.1):
+  eslint-config-prettier@10.1.8(eslint@10.0.1(jiti@2.4.2)):
+    dependencies:
+      eslint: 10.0.1(jiti@2.4.2)
+
+  eslint-plugin-prettier@5.5.5(eslint-config-prettier@10.1.8(eslint@10.0.1(jiti@2.4.2)))(eslint@10.0.1(jiti@2.4.2))(prettier@3.8.1):
     dependencies:
       eslint: 10.0.1(jiti@2.4.2)
       prettier: 3.8.1
       prettier-linter-helpers: 1.0.1
       synckit: 0.11.12
+    optionalDependencies:
+      eslint-config-prettier: 10.1.8(eslint@10.0.1(jiti@2.4.2))
 
   eslint-scope@9.1.1:
     dependencies:

@@ -18,6 +18,12 @@
     "skipLibCheck": true,
     "baseUrl": "./packages",
     "paths": {
+      "lihzsky-react": ["./react/index.ts"],
+      "lihzsky-react/jsx-runtime": ["./react/jsx-runtime.ts"],
+      "lihzsky-react/jsx-dev-runtime": ["./react/jsx-dev-runtime.ts"],
+      "lihzsky-react-dom": ["./react-dom/index.ts"],
+      "lihzsky-react-reconciler": ["./react-reconciler/index.ts"],
+      "lihzsky-shared": ["./shared/index.ts"],
       "hostConfig": ["./react-dom/src/hostConfig.ts"]
     }
   },
