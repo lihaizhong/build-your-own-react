@@ -32,13 +32,6 @@
 3. **构建虚拟 DOM 树**：在组件更新时，根据生成的更新计划，Reconciler 会更新虚拟 DOM 树的结构以反映最新的组件状态。
 4. **生成 DOM 更新指令**：将更新后的虚拟 DOM 树转换为真实的 DOM 操作指令，描述了如何将变更应用到实际的 DOM 树上。
 
-## 扩展
-
-- `rollup-plugin-generate-package-json`: 用于生成 `package.json` 文件。
-- `rollup-plugin-typescript2`: 用于编译 TypeScript 代码。
-- `rollup-plugin-commonjs`: 用于将 `CommonJS` 模块转换为 `ES` 模块，以便在 Rollup 中进行打包。（Rollup 默认只支持 `ES` 模块）
-- `rimraf`: 用于删除之间的打包产物。
-
 ## 参考
 
 - [自顶向下学 React 源码](https://ke.segmentfault.com/course/1650000023864436/section/1500000023864578)

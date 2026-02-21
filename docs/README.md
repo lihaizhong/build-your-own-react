@@ -18,12 +18,12 @@ flowchart TB
 
 | 序号 | 模块 | 文档 | 核心概念 |
 |------|------|------|----------|
-| 01 | JSX 转换 | [jsx.md](./01-jsx.md) | ReactElement、createElement |
-| 02 | Fiber 架构 | [fiber.md](./02-fiber.md) | FiberNode、双缓冲、工作单元 |
-| 03 | 协调算法 | [reconciliation.md](./03-reconciliation.md) | beginWork、completeWork、Diff |
-| 04 | Hooks 机制 | [hooks.md](./04-hooks.md) | useState、链表结构、闭包陷阱 |
-| 05 | 调度器 | [scheduler.md](./05-scheduler.md) | 时间切片、优先级、中断恢复 |
-| 06 | 事件系统 | [events.md](./06-events.md) | 合成事件、事件委托 |
+| 01 | JSX 转换 | [jsx.md](./tutorial/01-jsx.md) | ReactElement、createElement |
+| 02 | Fiber 架构 | [fiber.md](./tutorial/02-fiber.md) | FiberNode、双缓冲、工作单元 |
+| 03 | 协调算法 | [reconciliation.md](./tutorial/03-reconciliation.md) | beginWork、completeWork、Diff |
+| 04 | Hooks 机制 | [hooks.md](./tutorial/04-hooks.md) | useState、链表结构、闭包陷阱 |
+| 05 | 调度器 | [scheduler.md](./tutorial/05-scheduler.md) | 时间切片、优先级、中断恢复 |
+| 06 | 事件系统 | [events.md](./tutorial/06-events.md) | 合成事件、事件委托 |
 
 ## 核心概念速查
 
@@ -210,4 +210,4 @@ console.log('调度更新:', fiber, performance.now())
 
 ## 下一步
 
-准备好开始学习了吗？从 [JSX 转换](./01-jsx.md) 开始你的 React 源码之旅！
+准备好开始学习了吗？从 [JSX 转换](./tutorial/01-jsx.md) 开始你的 React 源码之旅！
